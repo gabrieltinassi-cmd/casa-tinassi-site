@@ -256,53 +256,25 @@ html.js .reveal.in { opacity: 1; transform: none; }
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 7rem clamp(1.2rem, 4vw, 3rem) 3rem;
+  background: url('assets/hero-bg.png') center 30% / cover no-repeat;
 }
 
-/* Três colunas: painel · texto central · painel.
-   No mobile empilha: texto primeiro, depois os dois painéis lado a lado. */
-.hero__row {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  align-items: center;
-}
-@media (min-width: 900px) {
-  .hero__row {
-    grid-template-columns: 1fr minmax(340px, 1.15fr) 1fr;
-    gap: clamp(1.5rem, 3vw, 3rem);
-  }
-}
-
-/* Painéis ilustrados: creme sobre a página verde, como os demais
-   painéis do site — só que aqui em par, ladeando o texto. */
-.hero__panel {
-  background: var(--creme);
-  color: var(--verde);
-  border-radius: var(--raio);
-  padding: 1.2rem;
-  box-shadow: var(--sombra);
-  max-width: 340px;
-  margin: 0 auto;
-  transform: rotate(-1.2deg);
-  transition: transform .6s cubic-bezier(.2,.8,.2,1);
-}
-.hero__panel--right { transform: rotate(1.2deg); }
-.hero__panel:hover { transform: rotate(0) scale(1.02); }
-.hero__panel svg { width: 100%; height: auto; display: block; }
-
-/* No mobile os painéis encolhem para caber lado a lado abaixo do texto */
-@media (max-width: 899px) {
-  .hero__row { grid-template-columns: 1fr 1fr; grid-template-areas: "centro centro" "esq dir"; }
-  .hero__center { grid-area: centro; }
-  .hero__panel--left  { grid-area: esq; max-width: none; }
-  .hero__panel--right { grid-area: dir; max-width: none; }
+/* Véu verde sobre a foto — garante leitura do texto creme e mantém
+   a casa "majoritariamente verde" mesmo com uma imagem real. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 640px 420px at 50% 48%, rgba(92,104,74,.88) 0%, rgba(92,104,74,.55) 70%, rgba(92,104,74,.28) 100%),
+    linear-gradient(180deg, rgba(92,104,74,.5) 0%, rgba(92,104,74,.4) 45%, rgba(92,104,74,.6) 100%);
 }
 
 .hero__center {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
   text-align: center;
   display: flex;
   flex-direction: column;

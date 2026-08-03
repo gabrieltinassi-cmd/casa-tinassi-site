@@ -56,95 +56,27 @@
   <main>
 
     <!-- ── HERO ──────────────────────────────────────────────────
-         Três colunas: ilustração (pilates) · texto central · ilustração
-         (psicologia) — igual à referência enviada, com nossas duas cores. -->
+         Foto real da casa como plano de fundo (assets/hero-bg.png),
+         com véu verde para legibilidade e o texto centralizado. -->
     <section class="hero" id="inicio">
-      <div class="hero__row">
-
-        <!-- Painel esquerdo: pilates -->
-        <div class="hero__panel hero__panel--left reveal" role="img" aria-label="Ilustração em traço: alongamento dinâmico apoiado no Reformer de pilates">
-          <svg viewBox="0 0 320 400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <!-- reformer: trilhos e plataforma -->
-            <path d="M30 300 H290"/>
-            <path d="M46 300 V270 H274 V300"/>
-            <path d="M58 300 V326 M262 300 V326"/>
-            <!-- carrinho -->
-            <path d="M108 270 V254 H222 V270"/>
-            <!-- molas -->
-            <path d="M222 262 q6 -6 12 0 q6 6 12 0 q6 -6 12 0"/>
-            <!-- barra de pés -->
-            <path d="M274 270 Q298 246 286 224"/>
-            <!-- figura: joelho apoiado, perna estendida para trás, braço para cima -->
-            <circle cx="150" cy="146" r="20"/>
-            <path d="M164 160 Q182 170 190 190"/>
-            <path d="M190 190 Q198 210 194 254"/>
-            <path d="M138 162 Q120 178 116 210 Q114 234 122 254"/>
-            <path d="M138 162 Q160 176 168 200"/>
-            <!-- braço erguido -->
-            <path d="M162 152 Q176 118 168 84"/>
-            <path d="M168 84 l-8 -10 M168 84 l10 -6"/>
-            <!-- braço de apoio na plataforma -->
-            <path d="M140 168 Q114 186 104 210"/>
-            <!-- brilhos -->
-            <path d="M244 150 C245 156 246 157 252 158 C246 159 245 160 244 166 C243 160 242 159 236 158 C242 157 243 156 244 150 Z"/>
-            <path d="M70 200 C71 204 72 205 76 206 C72 207 71 208 70 212 C69 208 68 207 64 206 C68 205 69 204 70 200 Z"/>
-          </svg>
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__center">
+        <svg class="hero__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 30 L32 12 L52 30"/>
+          <path d="M17 26 V52 H47 V26"/>
+          <path d="M32 52 V38 C32 30 26 28 22 30 C24 36 28 38 32 38 C36 38 40 36 42 30 C38 28 32 30 32 38"/>
+        </svg>
+        <h1 class="hero__title reveal d1">
+          Corpo em movimento,<br>
+          mente em <em>equilíbrio</em>.
+        </h1>
+        <p class="hero__sub reveal d2">
+          Pilates que fortalece. Escuta que transforma.<br>
+          Um espaço para cuidar de você por inteiro.
+        </p>
+        <div class="hero__actions reveal d3">
+          <a class="btn btn--solid" href="#historia">Conheça a casa</a>
         </div>
-
-        <!-- Centro: ícone + título + subtítulo + CTA -->
-        <div class="hero__center">
-          <svg class="hero__icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 30 L32 12 L52 30"/>
-            <path d="M17 26 V52 H47 V26"/>
-            <path d="M32 52 V38 C32 30 26 28 22 30 C24 36 28 38 32 38 C36 38 40 36 42 30 C38 28 32 30 32 38"/>
-          </svg>
-          <h1 class="hero__title reveal d1">
-            Corpo em movimento,<br>
-            mente em <em>equilíbrio</em>.
-          </h1>
-          <p class="hero__sub reveal d2">
-            Pilates que fortalece. Escuta que transforma.<br>
-            Um espaço para cuidar de você por inteiro.
-          </p>
-          <div class="hero__actions reveal d3">
-            <a class="btn btn--solid" href="#historia">Conheça a casa</a>
-          </div>
-        </div>
-
-        <!-- Painel direito: psicologia -->
-        <div class="hero__panel hero__panel--right reveal d1" role="img" aria-label="Ilustração em traço: psicóloga sentada em poltrona, anotando na prancheta, cercada de plantas">
-          <svg viewBox="0 0 320 400" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <!-- poltrona -->
-            <path d="M92 264 V196 Q92 168 120 168"/>
-            <path d="M92 264 H168"/>
-            <path d="M100 264 Q130 257 160 264"/>
-            <path d="M100 264 V320 M160 264 V320"/>
-            <!-- mulher sentada, postura ereta -->
-            <circle cx="192" cy="142" r="20"/>
-            <circle cx="171" cy="118" r="11"/>
-            <path d="M174 129 Q186 122 200 126"/>
-            <path d="M196 140 q3 3 0 6"/>
-            <path d="M185 161 Q184 173 180 182"/>
-            <path d="M180 182 Q168 192 165 224 Q163 240 170 246"/>
-            <path d="M189 162 Q200 188 196 222"/>
-            <path d="M179 192 Q204 202 221 230"/>
-            <!-- prancheta e caneta -->
-            <path d="M217 224 L259 242 L249 271 L207 253 Z"/>
-            <path d="M236 229 L247 246"/>
-            <!-- pernas -->
-            <path d="M168 245 Q198 255 217 274 Q222 279 222 294 L222 314"/>
-            <path d="M162 251 Q190 263 208 281 Q213 286 213 300 L213 316"/>
-            <!-- planta -->
-            <path d="M28 268 H72 L67 306 H33 Z"/>
-            <path d="M50 266 C33 232 31 200 49 178 C61 200 60 236 50 266 Z"/>
-            <path d="M55 264 C67 238 79 222 90 217 C86 244 72 260 56 266"/>
-            <path d="M45 264 C31 248 21 232 19 216 C37 226 46 246 47 264"/>
-            <!-- brilhos -->
-            <path d="M96 108 C97 113 98 114 103 115 C98 116 97 117 96 122 C95 117 94 116 89 115 C94 114 95 113 96 108 Z"/>
-            <path d="M258 178 C259 182 260 183 264 184 C260 185 259 186 258 190 C257 186 256 185 252 184 C256 183 257 182 258 178 Z"/>
-          </svg>
-        </div>
-
       </div>
       <div class="hero__scrollhint" aria-hidden="true">
         <span></span>
