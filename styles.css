@@ -53,20 +53,7 @@ h1 em, h2 em { font-style: italic; }
 
 a { color: inherit; }
 
-/* ── Palco 3D da casa (fixo atrás do hero) ────────────────────── */
-#stage3d {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
 main { position: relative; z-index: 1; }
-
-/* O hero é "janela": deixa a casa 3D aparecer */
-.hero { background: transparent; }
 
 /* ── Utilitários ──────────────────────────────────────────────── */
 .eyebrow {
@@ -268,64 +255,102 @@ html.js .reveal.in { opacity: 1; transform: none; }
   min-height: 100svh;
   position: relative;
   display: flex;
-  align-items: flex-end;
-  padding: 7rem clamp(1.4rem, 5vw, 4rem) 6rem;
+  align-items: center;
+  padding: 7rem clamp(1.2rem, 4vw, 3rem) 3rem;
 }
 
-.hero .stage__text { position: relative; z-index: 2; }
-@media (min-width: 1060px) {
-  .hero .stage__text {
-    position: absolute;
-    width: clamp(320px, 30vw, 460px);
+/* Três colunas: painel · texto central · painel.
+   No mobile empilha: texto primeiro, depois os dois painéis lado a lado. */
+.hero__row {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .hero__row {
+    grid-template-columns: 1fr minmax(340px, 1.15fr) 1fr;
+    gap: clamp(1.5rem, 3vw, 3rem);
   }
 }
 
-.hero__title {
-  font-size: clamp(2.7rem, 7.5vw, 4.6rem);
-  font-weight: 500;
+/* Painéis ilustrados: creme sobre a página verde, como os demais
+   painéis do site — só que aqui em par, ladeando o texto. */
+.hero__panel {
+  background: var(--creme);
+  color: var(--verde);
+  border-radius: var(--raio);
+  padding: 1.2rem;
+  box-shadow: var(--sombra);
+  max-width: 340px;
+  margin: 0 auto;
+  transform: rotate(-1.2deg);
+  transition: transform .6s cubic-bezier(.2,.8,.2,1);
 }
-.hero__title span { display: block; }
+.hero__panel--right { transform: rotate(1.2deg); }
+.hero__panel:hover { transform: rotate(0) scale(1.02); }
+.hero__panel svg { width: 100%; height: auto; display: block; }
+
+/* No mobile os painéis encolhem para caber lado a lado abaixo do texto */
+@media (max-width: 899px) {
+  .hero__row { grid-template-columns: 1fr 1fr; grid-template-areas: "centro centro" "esq dir"; }
+  .hero__center { grid-area: centro; }
+  .hero__panel--left  { grid-area: esq; max-width: none; }
+  .hero__panel--right { grid-area: dir; max-width: none; }
+}
+
+.hero__center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero__icon {
+  width: 50px; height: 50px;
+  margin-bottom: 1.2rem;
+  opacity: .9;
+}
+
+.hero__title {
+  font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.18;
+}
+.hero__title em { font-style: italic; }
 
 .hero__sub {
-  margin-top: 1.6rem;
-  max-width: 46ch;
-  font-size: 1.1rem;
+  margin-top: 1.3rem;
+  max-width: 34ch;
+  font-size: 1.02rem;
   opacity: .88;
 }
 
 .hero__actions {
-  margin-top: 2.2rem;
+  margin-top: 1.8rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: .9rem;
 }
 
-/* legibilidade do texto sobre o 3D: leve véu verde atrás */
-.hero .stage__text::before {
-  content: "";
-  position: absolute;
-  inset: -12% -14%;
-  background: radial-gradient(ellipse at 40% 45%, rgba(92, 104, 74, .9) 30%, rgba(92, 104, 74, 0) 75%);
-  z-index: -1;
-}
-
-/* Em telas mais BAIXAS (notebooks comuns), o título do hero
-   encolhe para o texto inteiro caber na tela. */
-@media (max-height: 840px) {
-  .hero__title { font-size: clamp(2.1rem, 5.2vh, 3.6rem); }
-  .hero__sub { font-size: 1rem; margin-top: 1.1rem; }
-  .hero__actions { margin-top: 1.6rem; }
-  .hero { padding-bottom: 5rem; }
-}
-@media (max-height: 700px) {
-  .hero__title { font-size: clamp(1.9rem, 4.8vh, 2.8rem); }
-  .eyebrow { margin-bottom: .6rem; }
+/* Em telas mais BAIXAS (notebooks comuns), tudo encolhe um pouco
+   para caber sem cortar o CTA. */
+@media (max-height: 780px) {
+  .hero { padding-top: 6rem; padding-bottom: 2rem; }
+  .hero__icon { width: 40px; height: 40px; margin-bottom: .8rem; }
+  .hero__title { font-size: clamp(1.6rem, 3.6vw, 2.3rem); }
+  .hero__sub { margin-top: .9rem; font-size: .95rem; }
+  .hero__actions { margin-top: 1.2rem; }
 }
 
 /* Indicador de scroll */
 .hero__scrollhint {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.2rem;
   left: 50%;
   transform: translateX(-50%);
   width: 26px; height: 44px;
@@ -345,6 +370,57 @@ html.js .reveal.in { opacity: 1; transform: none; }
   0%   { transform: translateY(0);    opacity: 1; }
   60%  { transform: translateY(14px); opacity: 0; }
   100% { transform: translateY(0);    opacity: 0; }
+}
+
+/* ── Faixa verde dos três pilares (logo abaixo do hero) ───────── */
+.features {
+  position: relative;
+  background: var(--verde);
+  padding: 0 clamp(1.2rem, 4vw, 3rem) clamp(3rem, 6vw, 4.5rem);
+  margin-top: -1px; /* fecha qualquer fresta de subpixel com o hero */
+}
+.features__wave {
+  display: block;
+  width: 100%;
+  height: 56px;
+  color: var(--verde);
+}
+.features__wave path { fill: currentColor; }
+
+.features__grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2.2rem;
+  text-align: center;
+}
+@media (min-width: 760px) {
+  .features__grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+}
+
+.feature__icon {
+  display: grid;
+  place-items: center;
+  width: 64px; height: 64px;
+  margin: 0 auto 1.1rem;
+  border-radius: 50%;
+  border: 1px solid var(--creme-25);
+}
+.feature__icon svg { width: 30px; height: 30px; }
+
+.feature h4 {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.feature p {
+  margin-top: .6rem;
+  font-size: .92rem;
+  opacity: .8;
+  max-width: 28ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ── Manifesto (faixa creme de respiro) ───────────────────────── */

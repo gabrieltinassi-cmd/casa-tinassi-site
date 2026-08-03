@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════
    CASA TINASSI — main.js
    1. Revelação suave dos elementos ao rolar
-   2. CASA acolhedora 3D no hero — centralizada e majoritariamente verde
-   3. PILATES 3D — pessoa executa o movimento no Reformer conforme
+   2. PILATES 3D — pessoa executa o movimento no Reformer conforme
       a página desce (teaser com alças)
-   4. MIRIAM · PSICOLOGIA 3D — busto de cabeça aberta de onde flores
+   3. MIRIAM · PSICOLOGIA 3D — busto de cabeça aberta de onde flores
       desabrocham conforme o painel sobe na tela
+   O Hero agora é ilustração estática (SVG) em três colunas — sem 3D.
    Tudo respeita `prefers-reduced-motion` e usa SÓ as duas cores.
    ═══════════════════════════════════════════════════════════════ */
 
@@ -58,7 +58,7 @@ if (reduceMotion) {
    ────────────────────────────────────────────────────────────── */
 if (!window.THREE) {
   document.documentElement.classList.add('no3d');
-  ['stage3d', 'pilatesCanvas', 'florCanvas'].forEach(id => {
+  ['pilatesCanvas', 'florCanvas'].forEach(id => {
     const c = document.getElementById(id);
     if (c) c.style.display = 'none';
   });
@@ -93,185 +93,7 @@ function cenaBase(THREE, canvas, { alpha = false } = {}) {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   4. A CASA — hero, centralizada e majoritariamente VERDE
-   Paredes e telhado verdes; o creme fica nos detalhes que acolhem:
-   porta, janelas acesas, fumaça e o "tapete" de chão.
-   ────────────────────────────────────────────────────────────── */
-(function heroHouse() {
-  if (!window.THREE) return;
-  const canvas = document.getElementById('stage3d');
-  if (!canvas) return;
-  const THREE = window.THREE;
-
-  const { scene, renderer } = cenaBase(THREE, canvas, { alpha: true });
-  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 50);
-  camera.position.set(3.4, 2.3, 4.6);
-  camera.lookAt(0, 0.55, 0);
-
-  const mVerde = new THREE.MeshStandardMaterial({ color: COR_VERDE, roughness: 0.7 });
-  const mVerdeTelhado = new THREE.MeshStandardMaterial({ color: COR_VERDE, roughness: 0.45 });
-  const mCreme = new THREE.MeshStandardMaterial({ color: COR_CREME, roughness: 0.8 });
-  const mJanela = new THREE.MeshStandardMaterial({
-    color: COR_CREME, roughness: 0.5,
-    emissive: COR_CREME, emissiveIntensity: 0.55, // janelas acesas
-  });
-  const box = (wx, wy, wz, mat) => new THREE.Mesh(new THREE.BoxGeometry(wx, wy, wz), mat);
-
-  const rig = new THREE.Group();
-  scene.add(rig);
-
-  /* "Tapete" de chão creme — o acolhimento embaixo da casa verde */
-  const chao = new THREE.Mesh(new THREE.CylinderGeometry(2.05, 2.05, 0.06, 40), mCreme);
-  chao.position.y = -0.03;
-  rig.add(chao);
-
-  /* Corpo da casa — VERDE */
-  const corpo = box(1.7, 1.05, 1.25, mVerde);
-  corpo.position.y = 0.525;
-  rig.add(corpo);
-
-  /* Telhado de duas águas — VERDE (rugosidade diferente separa do corpo) */
-  const telhadoShape = new THREE.Shape();
-  telhadoShape.moveTo(-1.02, 0);
-  telhadoShape.lineTo(1.02, 0);
-  telhadoShape.lineTo(0, 0.8);
-  telhadoShape.closePath();
-  const telhadoGeo = new THREE.ExtrudeGeometry(telhadoShape, { depth: 1.45, bevelEnabled: false });
-  const telhado = new THREE.Mesh(telhadoGeo, mVerdeTelhado);
-  telhado.position.set(0, 1.05, -0.725);
-  rig.add(telhado);
-
-  /* Chaminé verde */
-  const chamine = box(0.17, 0.5, 0.17, mVerde);
-  chamine.position.set(0.5, 1.62, -0.32);
-  rig.add(chamine);
-
-  /* Porta CREME com maçaneta verde */
-  const porta = box(0.34, 0.62, 0.05, mCreme);
-  porta.position.set(0, 0.31, 0.635);
-  rig.add(porta);
-  const macaneta = new THREE.Mesh(new THREE.SphereGeometry(0.022, 10, 10), mVerde);
-  macaneta.position.set(0.1, 0.3, 0.665);
-  rig.add(macaneta);
-
-  /* Janelas acesas com moldura creme */
-  [[-0.52], [0.52]].forEach(([x]) => {
-    const moldura = box(0.34, 0.34, 0.04, mCreme);
-    moldura.position.set(x, 0.58, 0.635);
-    const vidro = box(0.26, 0.26, 0.045, mJanela);
-    vidro.position.set(x, 0.58, 0.638);
-    rig.add(moldura, vidro);
-  });
-  /* Janelinha redonda na empena */
-  const oculo = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.04, 20), mCreme);
-  oculo.rotation.x = Math.PI / 2;
-  oculo.position.set(0, 1.38, 0.728);
-  const oculoVidro = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.05, 20), mJanela);
-  oculoVidro.rotation.x = Math.PI / 2;
-  oculoVidro.position.set(0, 1.38, 0.73);
-  rig.add(oculo, oculoVidro);
-
-  /* Caminho verde sobre o tapete creme */
-  const caminho = box(0.42, 0.035, 1.1, mVerde);
-  caminho.position.set(0, 0.015, 1.35);
-  rig.add(caminho);
-
-  /* Arbustos verdes e uma árvore */
-  const arbusto = (x, z, r) => {
-    const b = new THREE.Mesh(new THREE.SphereGeometry(r, 16, 12), mVerde);
-    b.position.set(x, r * 0.75, z);
-    rig.add(b);
-  };
-  arbusto(-0.65, 0.85, 0.2);
-  arbusto(-0.95, 0.7, 0.14);
-  arbusto(0.68, 0.85, 0.17);
-  const tronco = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.5, 8), mCreme);
-  tronco.position.set(1.18, 0.25, 0.35);
-  const copa = new THREE.Mesh(new THREE.SphereGeometry(0.42, 16, 12), mVerde);
-  copa.position.set(1.18, 0.85, 0.35);
-  rig.add(tronco, copa);
-
-  /* Fumaça creme subindo da chaminé */
-  const fumaca = [];
-  for (let i = 0; i < 4; i++) {
-    const mat = new THREE.MeshBasicMaterial({ color: COR_CREME, transparent: true, opacity: 0.5 });
-    const puff = new THREE.Mesh(new THREE.SphereGeometry(0.09, 10, 10), mat);
-    puff.userData.phase = i / 4;
-    fumaca.push(puff);
-    rig.add(puff);
-  }
-  function animaFumaca(t) {
-    for (const puff of fumaca) {
-      const ciclo = ((t * 0.12) + puff.userData.phase) % 1;
-      puff.position.set(
-        0.5 + Math.sin(ciclo * 6 + puff.userData.phase * 9) * 0.06,
-        1.9 + ciclo * 0.9,
-        -0.32
-      );
-      puff.scale.setScalar(0.5 + ciclo * 1.4);
-      puff.material.opacity = 0.45 * (1 - ciclo);
-    }
-  }
-
-  const heroEl = document.querySelector('.hero');
-
-  function resize() {
-    renderer.setSize(window.innerWidth, window.innerHeight, false);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  if (reduceMotion) {
-    rig.rotation.y = 0.5;
-    rig.scale.setScalar(isMobile() ? 0.55 : 0.8);
-    rig.position.y = isMobile() ? -0.1 : 0;
-    animaFumaca(2);
-    renderer.render(scene, camera);
-    return;
-  }
-
-  // começa já no valor final (sem "encolhida" de entrada)
-  const cur = {
-    y: isMobile() ? -0.1 : 0.02,
-    scale: isMobile() ? 0.55 : 0.8,
-    opacity: 1,
-  };
-  const clock = new THREE.Clock();
-
-  function animate() {
-    requestAnimationFrame(animate);
-    const dt = Math.min(clock.getDelta(), 0.05);
-    const t = clock.elapsedTime;
-    const k = 1 - Math.exp(-dt * 4.2);
-
-    const heroP = clamp(window.scrollY / (heroEl.offsetHeight * 0.9), 0, 1);
-    const mob = isMobile();
-
-    cur.y = lerp(cur.y, (mob ? -0.1 : 0.02) - heroP * 1.3, k);
-    cur.scale = lerp(cur.scale, (mob ? 0.55 : 0.8) * (1 - heroP * 0.12), k);
-    cur.opacity = lerp(cur.opacity, 1 - smoothstep(0.55, 0.95, heroP), k * 1.5);
-
-    canvas.style.opacity = cur.opacity.toFixed(3);
-    if (cur.opacity < 0.01) return;
-
-    animaFumaca(t);
-
-    /* CENTRALIZADA: a casa mora no meio da tela */
-    rig.position.set(0, cur.y + Math.sin(t * 0.5) * 0.02, 0);
-    rig.rotation.y = 0.5 + Math.sin(t * 0.25) * 0.07 + mouseX * 0.08;
-    rig.rotation.x = mouseY * 0.03;
-    rig.scale.setScalar(cur.scale);
-
-    renderer.render(scene, camera);
-  }
-  animate();
-})();
-
-/* ──────────────────────────────────────────────────────────────
-   5. PILATES — a pessoa faz o movimento conforme a página desce
+   2. PILATES — a pessoa faz o movimento conforme a página desce
    Reformer com estrutura creme e estofado verde; sobre ele, uma
    figura creme deitada que sobe ao "teaser" (tronco e pernas em V,
    braços à frente) e volta, no ritmo do scroll. Dá para arrastar
@@ -521,7 +343,7 @@ function cenaBase(THREE, canvas, { alpha = false } = {}) {
 })();
 
 /* ──────────────────────────────────────────────────────────────
-   6. MIRIAM · PSICOLOGIA — a mente floresce
+   3. MIRIAM · PSICOLOGIA — a mente floresce
    Busto creme de cabeça aberta no painel central da Miriam;
    conforme o painel sobe na tela, caules crescem e flores
    desabrocham uma a uma. No peito, um coração verde que acende
