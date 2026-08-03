@@ -143,7 +143,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
   text-decoration: none;
   color: var(--creme);
 }
-.brand-mark { width: 32px; height: 37px; }
+.brand-mark { height: 34px; width: auto; display: block; }
 .nav__name {
   font-family: var(--serif);
   font-size: 1.35rem;
@@ -546,7 +546,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
   padding: 3.5rem 1.5rem 6.5rem; /* espaço extra p/ botões flutuantes */
 }
 .brand-mark--footer {
-  width: 42px; height: 49px;
+  height: 46px; width: auto;
   margin: 0 auto 1rem;
 }
 .footer__name {

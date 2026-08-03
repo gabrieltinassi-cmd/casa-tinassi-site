@@ -13,8 +13,8 @@
 
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Favicon com o símbolo real da marca -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 116' fill='none' stroke='%23F4EEDF' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='-10' y='-10' width='120' height='136' rx='24' fill='%235C684A' stroke='none'/%3E%3Ccircle cx='51.5' cy='26.5' r='8.6' fill='%23F4EEDF' stroke='none'/%3E%3Cpath d='M25.5 26.5 C18.5 36.5 17 54 19 65 C21.5 75.5 30.5 84 43.5 92'/%3E%3Cpath d='M25.5 26.5 C31 30.5 34 35.5 34.5 41 C35 46.5 38 50 43 51 C48.5 52 53 50.5 56 51 C58.5 51.4 59.5 52.5 60 54.4'/%3E%3Cpath d='M60 54.4 C59 48 58.5 41 59.5 37.5 C60.5 34 63.5 33 65.8 34.8 C72.5 40 78 47 78.5 55 C79 66.5 68.5 80 48 92.5'/%3E%3Cpath d='M60 54.4 C56.5 63 50.5 69.5 48 76.5 C46 82 45.2 87.5 45.4 92'/%3E%3Cpath d='M42 58.5 C37.5 64.5 35.5 71 35 77.5'/%3E%3Cpath d='M45.4 92.5 C43.5 98 43.2 103 45.2 107 C46.6 109.8 48.6 110.8 51 111'/%3E%3C/svg%3E">
+  <!-- Favicon com o símbolo oficial da marca -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
 
   <!-- Marca que o JS está ativo: as animações de entrada só escondem
        conteúdo se o script realmente rodar (nada de página em branco) -->
@@ -30,16 +30,8 @@
   <!-- ── Navegação ─────────────────────────────────────────────── -->
   <header class="nav" id="topo">
     <a class="nav__brand" href="#topo" aria-label="Casa Tinassi — início">
-      <!-- Símbolo oficial: duas folhas em abraço sob o ponto, com caule -->
-      <svg class="brand-mark" viewBox="0 0 100 116" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="51.5" cy="26.5" r="8.6" fill="currentColor" stroke="none"/>
-        <path d="M25.5 26.5 C18.5 36.5 17 54 19 65 C21.5 75.5 30.5 84 43.5 92"/>
-        <path d="M25.5 26.5 C31 30.5 34 35.5 34.5 41 C35 46.5 38 50 43 51 C48.5 52 53 50.5 56 51 C58.5 51.4 59.5 52.5 60 54.4"/>
-        <path d="M60 54.4 C59 48 58.5 41 59.5 37.5 C60.5 34 63.5 33 65.8 34.8 C72.5 40 78 47 78.5 55 C79 66.5 68.5 80 48 92.5"/>
-        <path d="M60 54.4 C56.5 63 50.5 69.5 48 76.5 C46 82 45.2 87.5 45.4 92"/>
-        <path d="M42 58.5 C37.5 64.5 35.5 71 35 77.5"/>
-        <path d="M45.4 92.5 C43.5 98 43.2 103 45.2 107 C46.6 109.8 48.6 110.8 51 111"/>
-      </svg>
+      <!-- Símbolo oficial da marca (arquivo fornecido, fundo removido) -->
+      <img class="brand-mark" src="assets/logo-mark.png" alt="" aria-hidden="true">
       <span class="nav__name">Casa <strong>Tinassi</strong></span>
     </a>
     <nav class="nav__links" aria-label="Seções do site">
@@ -284,15 +276,7 @@
 
   <!-- ── Rodapé ──────────────────────────────────────────────── -->
   <footer class="footer">
-    <svg class="brand-mark brand-mark--footer" viewBox="0 0 100 116" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="51.5" cy="26.5" r="8.6" fill="currentColor" stroke="none"/>
-      <path d="M25.5 26.5 C18.5 36.5 17 54 19 65 C21.5 75.5 30.5 84 43.5 92"/>
-      <path d="M25.5 26.5 C31 30.5 34 35.5 34.5 41 C35 46.5 38 50 43 51 C48.5 52 53 50.5 56 51 C58.5 51.4 59.5 52.5 60 54.4"/>
-      <path d="M60 54.4 C59 48 58.5 41 59.5 37.5 C60.5 34 63.5 33 65.8 34.8 C72.5 40 78 47 78.5 55 C79 66.5 68.5 80 48 92.5"/>
-      <path d="M60 54.4 C56.5 63 50.5 69.5 48 76.5 C46 82 45.2 87.5 45.4 92"/>
-      <path d="M42 58.5 C37.5 64.5 35.5 71 35 77.5"/>
-      <path d="M45.4 92.5 C43.5 98 43.2 103 45.2 107 C46.6 109.8 48.6 110.8 51 111"/>
-    </svg>
+    <img class="brand-mark brand-mark--footer" src="assets/logo-mark.png" alt="Casa Tinassi">
     <p class="footer__name">Casa Tinassi <span>· Bem-Estar integrado</span></p>
     <p class="footer__small">Rua Sérgio Plaza, 408 — Vila Oliveira, Mogi das Cruzes/SP</p>
     <p class="footer__small">© 2026 Casa Tinassi. Feito com carinho, como tudo por aqui.</p>
